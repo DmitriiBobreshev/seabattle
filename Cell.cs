@@ -63,14 +63,14 @@ class Cell
 
     public override string ToString()
     {
-        if (_status == CellStatus.ShipHit) return "X";
-        if (_status == CellStatus.Open) return "O";
+        if (_status == CellStatus.ShipHit) return "█";
+        if (_status == CellStatus.Open) return "X";
 
 #if DEBUG
         if (_ship != null) return "S"; // remove in production
 #endif
 
-        return "H";
+        return "░";
     }
 }
 

@@ -2,7 +2,6 @@ using System.Text;
 
 class BattleGround
 {
-    private const char delitimer = '|';
     private Cell[,] _board = new Cell[10, 10];
     private int _shipCnt;
     public int ShipCnt => _shipCnt;
@@ -76,10 +75,10 @@ class BattleGround
         for (int i = 0; i < rows; i++)
         {
             sb.Clear();
-            sb.Append(i.ToString() + delitimer);
+            sb.Append(i.ToString() + "|");
             for (int j = 0; j < columns; j++)
             {
-                sb.Append(_board[j, i].ToString() + delitimer);
+                sb.Append(_board[j, i].ToString());
             }
             yield return sb;
         }
@@ -87,16 +86,14 @@ class BattleGround
 
     private StringBuilder DisplayRowHeader()
     {
-        StringBuilder sb = new StringBuilder(" " + delitimer);
+        StringBuilder sb = new StringBuilder("  ");
 
         int rows = _board.GetLength(0);
         for (int i = 0; i < rows; i++)
         {
             char rowChar = BattleGroundUtils.IntToChar(i);
             sb.Append(rowChar);
-            sb.Append(delitimer);
         }
-
         return sb;
     }
 }
