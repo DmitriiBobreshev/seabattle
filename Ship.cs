@@ -1,6 +1,6 @@
 interface IShip
 {
-    public List<Coordinate> coords
+    public List<Coordinate> Coords
     {
         get;
     }
@@ -22,7 +22,7 @@ class NotValidShip : IShip
 {
     private List<Coordinate> _coords = new List<Coordinate>();
 
-    public List<Coordinate> coords
+    public List<Coordinate> Coords
     {
         get { return _coords; }
     }
@@ -46,7 +46,7 @@ class NotValidShip : IShip
 class Ship : IShip
 {
     private List<Coordinate> _coords;
-    public List<Coordinate> coords
+    public List<Coordinate> Coords
     {
         get
         {
