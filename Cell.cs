@@ -20,42 +20,42 @@ interface ICell
 
 class Cell
 {
-    readonly Coord coord;
-    CellStatus status;
-    IShip? ship;
+    private readonly Coord _coord;
+    private CellStatus _status;
+    private IShip? _ship;
 
     public Cell(Coord coord)
     {
-        this.coord = coord;
-        status = CellStatus.Hidden;
+        _coord = coord;
+        _status = CellStatus.Hidden;
     }
 
     public Cell(Coord coord, IShip ship) : this(coord)
     {
-        this.ship = ship;
+        _ship = ship;
     }
 
     public FireResult Fire()
     {
-        if (status == CellStatus.Open) return FireResult.Duplicate;
+        if (_status == CellStatus.Open) return FireResult.Duplicate;
 
-        if (ship != null)
+        if (_ship != null)
         {
-            status = CellStatus.ShipHit;
-            ship.HitShip(coord);
-            if (ship.IsKilled()) return FireResult.Killed;
+            _status = CellStatus.ShipHit;
+            _ship.HitShip(_coord);
+            if (_ship.IsKilled()) return FireResult.Killed;
             return FireResult.Hit;
         }
 
-        status = CellStatus.Open;
+        _status = CellStatus.Open;
         return FireResult.Missed;
     }
 
     public string GetShipKilledMessage()
     {
-        if (ship != null && ship.IsKilled())
+        if (_ship != null && _ship.IsKilled())
         {
-            return ship.GetDeathMessage();
+            return _ship.GetDeathMessage();
         }
 
         throw new Exception(Localization.ShipNotKilledMessage);
@@ -63,11 +63,11 @@ class Cell
 
     public override string ToString()
     {
-        if (status == CellStatus.ShipHit) return "X";
-        if (status == CellStatus.Open) return "O";
+        if (_status == CellStatus.ShipHit) return "X";
+        if (_status == CellStatus.Open) return "O";
 
 #if DEBUG
-        if (ship != null) return "S"; // remove in production
+        if (_ship != null) return "S"; // remove in production
 #endif
 
         return "H";

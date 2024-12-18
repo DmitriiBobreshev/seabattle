@@ -3,7 +3,7 @@ using System.Text;
 class BattleGround
 {
     private const char delitimer = '|';
-    private Cell[,] board = new Cell[10, 10];
+    private Cell[,] _board = new Cell[10, 10];
     private int _shipCnt;
     public int ShipCnt => _shipCnt;
     public BattleGround(List<IShip> ships)
@@ -14,13 +14,13 @@ class BattleGround
 
     private void FillBoard(List<IShip> ships)
     {
-        int rows = board.GetLength(0);
-        int columns = board.GetLength(1);
+        int rows = _board.GetLength(0);
+        int columns = _board.GetLength(1);
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < columns; j++)
             {
-                board[j, i] = InitCell(ships, j, i);
+                _board[j, i] = InitCell(ships, j, i);
             }
         }
     }
@@ -46,7 +46,7 @@ class BattleGround
     {
         try
         {
-            Cell cell = board[coord.y, coord.x];
+            Cell cell = _board[coord.y, coord.x];
             FireResult res = cell.Fire();
 
             switch (res)
@@ -71,15 +71,15 @@ class BattleGround
         StringBuilder sb = new StringBuilder();
         yield return DisplayRowHeader();
 
-        int rows = board.GetLength(0);
-        int columns = board.GetLength(1);
+        int rows = _board.GetLength(0);
+        int columns = _board.GetLength(1);
         for (int i = 0; i < rows; i++)
         {
             sb.Clear();
             sb.Append(i.ToString() + delitimer);
             for (int j = 0; j < columns; j++)
             {
-                sb.Append(board[j, i].ToString() + delitimer);
+                sb.Append(_board[j, i].ToString() + delitimer);
             }
             yield return sb;
         }
@@ -89,7 +89,7 @@ class BattleGround
     {
         StringBuilder sb = new StringBuilder(" " + delitimer);
 
-        int rows = board.GetLength(0);
+        int rows = _board.GetLength(0);
         for (int i = 0; i < rows; i++)
         {
             char rowChar = BattleGroundUtils.IntToChar(i);
