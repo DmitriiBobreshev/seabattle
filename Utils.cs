@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 static class BattleGroundUtils
 {
     public static char IntToChar(int v)

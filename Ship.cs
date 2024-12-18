@@ -1,5 +1,3 @@
-using System.Security.Cryptography.X509Certificates;
-
 interface IShip
 {
     public List<Coord> coords
