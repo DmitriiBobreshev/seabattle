@@ -13,7 +13,7 @@ class Player
     }
     public IEnumerable<StringBuilder> DisplayBattleGround()
     {
-        yield return new StringBuilder("  " + playerName);
+        yield return new StringBuilder(playerName);
 
         foreach (StringBuilder sb in _battlefround.DisplayBattleGround())
         {

@@ -53,7 +53,7 @@ static class BattleGroundUtils
         {
             int x = r.Next(0, 9);
             int y = r.Next(0, 9);
-            c = new Coord(x, y);
+            c = new Coord(IntToChar(x), y);
 
             if (busyCoords.Contains(c))
             {
@@ -84,8 +84,8 @@ static class BattleGroundUtils
     private static List<Coord> GenRoundCoords(Coord startingCoord)
     {
         List<Coord> coords = new List<Coord>();
-        int x = startingCoord.x;
-        int y = startingCoord.y;
+        int x = CharToInt(startingCoord.letter);
+        int y = startingCoord.number;
 
         for (int i = x - 1; i <= x + 1; i++)
         {
@@ -93,7 +93,7 @@ static class BattleGroundUtils
             {
                 if (i < 0 || j < 0) continue;
                 if (i == x && j == y) continue;
-                coords.Add(new Coord(i, j));
+                coords.Add(new Coord(IntToChar(i), j));
             }
         }
 
@@ -115,8 +115,8 @@ static class BattleGroundUtils
 
             for (int j = 1; j < shipSize + 1; j++)
             {
-                int x = startingCoord.x;
-                int y = startingCoord.y;
+                int x = CharToInt(startingCoord.letter);
+                int y = startingCoord.number;
 
                 if (i == 0) x = x - j; // max to top 
                 if (i == 1) x = x + j; // max to bottom 
@@ -126,10 +126,10 @@ static class BattleGroundUtils
                 if (x < 0 || x > 9) break; // not valid
                 if (y < 0 || y > 9) break; // not valid
 
-                Coord coord = new Coord(x, y);
+                Coord coord = new Coord(IntToChar(x), y);
                 if (busyCoords.Contains(coord) || coord == startingCoord) break;
 
-                possibleShip.Add(new Coord(x, y));
+                possibleShip.Add(coord);
             }
 
             if (possibleShip.Count == shipSize)

@@ -62,24 +62,24 @@ class App
 
     private Coord GetCoordsFromLine(string line)
     {
-        if (line.Length != 2)
+        if (line.Length != 2 && line.Length != 3)
         {
             throw new ArgumentOutOfRangeException(Localization.ReadLineException);
         }
 
-        int y = BattleGroundUtils.CharToInt(line[0]);
-        if (y < 0 || y > 10)
+        char letter = line[0];
+        if (letter < 'A' || letter > 'J')
         {
             throw new ArgumentOutOfRangeException(Localization.NotValidCell);
         }
 
-        int x = line[1] - '0';
-        if (x < 0 || x > 10)
+        int y;
+        if (!int.TryParse(line.Substring(1), out y) || y < 1 || y > 10)
         {
             throw new ArgumentOutOfRangeException(Localization.NotValidCell);
         }
 
-        return new Coord(x, y);
+        return new Coord(letter, y - 1);
     }
 
     private void ShowBattleground()

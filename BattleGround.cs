@@ -19,12 +19,12 @@ class BattleGround
         {
             for (int j = 0; j < columns; j++)
             {
-                _board[j, i] = InitCell(ships, j, i);
+                _board[j, i] = InitCell(ships, BattleGroundUtils.IntToChar(j), i);
             }
         }
     }
 
-    private Cell InitCell(List<IShip> ships, int col, int row)
+    private Cell InitCell(List<IShip> ships, char col, int row)
     {
         Coord coord = new Coord(col, row);
         IShip? ship = ships.Find(x => x.coords.Contains(coord));
@@ -45,7 +45,8 @@ class BattleGround
     {
         try
         {
-            Cell cell = _board[coord.y, coord.x];
+            int letterInt = BattleGroundUtils.CharToInt(coord.letter);
+            Cell cell = _board[letterInt, coord.number];
             FireResult res = cell.Fire();
 
             switch (res)
@@ -75,7 +76,13 @@ class BattleGround
         for (int i = 0; i < rows; i++)
         {
             sb.Clear();
-            sb.Append(i.ToString() + "|");
+            string rowStr = (i + 1).ToString();
+            if (i != 9)
+            {
+                rowStr = " " + rowStr;
+            }
+
+            sb.Append(rowStr + "|");
             for (int j = 0; j < columns; j++)
             {
                 sb.Append(_board[j, i].ToString());
@@ -86,7 +93,7 @@ class BattleGround
 
     private StringBuilder DisplayRowHeader()
     {
-        StringBuilder sb = new StringBuilder("  ");
+        StringBuilder sb = new StringBuilder("   ");
 
         int rows = _board.GetLength(0);
         for (int i = 0; i < rows; i++)

@@ -1,1 +1,1 @@
-record Coord(int x, int y) { }
+record struct Coord(char letter, int number) { }
