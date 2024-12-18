@@ -61,7 +61,7 @@ static class BattleGroundUtils
             }
             else if (TryToGenShipFromCell(busyCoords, shipSize, c, out ship))
             {
-                foreach (Coordinate shipCoord in ship.coords)
+                foreach (Coordinate shipCoord in ship.Coords)
                 {
                     busyCoords.Add(shipCoord);
 

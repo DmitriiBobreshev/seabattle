@@ -20,12 +20,9 @@ enum ShipCapacity
 
 class NotValidShip : IShip
 {
-    private List<Coordinate> _coords = new List<Coordinate>();
+    private Dictionary<Coordinate, bool> _coords = new Dictionary<Coordinate, bool>();
 
-    public List<Coordinate> Coords
-    {
-        get { return _coords; }
-    }
+    public List<Coordinate> Coords => _coords.Keys.ToList();
 
     public bool IsKilled()
     {
@@ -45,32 +42,28 @@ class NotValidShip : IShip
 
 class Ship : IShip
 {
-    private List<Coordinate> _coords;
-    public List<Coordinate> Coords
-    {
-        get
-        {
-            return _coords;
-        }
-    }
+    private Dictionary<Coordinate, bool> _coords = new Dictionary<Coordinate, bool>();
+    public List<Coordinate> Coords => _coords.Keys.ToList();
 
-    List<Coordinate> floatedCoords = new List<Coordinate>();
     public Ship(List<Coordinate> coords)
     {
-        _coords = coords;
+        foreach (Coordinate coord in coords)
+        {
+            _coords.Add(coord, false);
+        }
     }
 
     public void HitShip(Coordinate coord)
     {
-        if (_coords.Contains(coord))
+        if (_coords.ContainsKey(coord))
         {
-            floatedCoords.Add(coord);
+            _coords[coord] = true;
         }
     }
 
     public bool IsKilled()
     {
-        return _coords.Count == floatedCoords.Count;
+        return _coords.All(x => x.Value);
     }
 
     public virtual string GetDeathMessage()
