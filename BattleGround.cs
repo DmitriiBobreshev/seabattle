@@ -26,7 +26,7 @@ class BattleGround
 
     private Cell InitCell(List<IShip> ships, char col, int row)
     {
-        Coord coord = new Coord(col, row);
+        Coordinate coord = new Coordinate(col, row);
         IShip? ship = ships.Find(x => x.coords.Contains(coord));
         Cell cell;
         if (ship != null)
@@ -41,7 +41,7 @@ class BattleGround
         return cell;
     }
 
-    public (string, FireResult) FireCell(Coord coord)
+    public (string, FireResult) FireCell(Coordinate coord)
     {
         try
         {

@@ -15,22 +15,22 @@ enum CellStatus
 
 interface ICell
 {
-    public FireResult Fire(Coord coord);
+    public FireResult Fire(Coordinate coord);
 }
 
 class Cell
 {
-    private readonly Coord _coord;
+    private readonly Coordinate _coord;
     private CellStatus _status;
     private IShip? _ship;
 
-    public Cell(Coord coord)
+    public Cell(Coordinate coord)
     {
         _coord = coord;
         _status = CellStatus.Hidden;
     }
 
-    public Cell(Coord coord, IShip ship) : this(coord)
+    public Cell(Coordinate coord, IShip ship) : this(coord)
     {
         _ship = ship;
     }

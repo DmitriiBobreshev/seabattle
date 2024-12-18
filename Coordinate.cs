@@ -1,0 +1,1 @@
+record struct Coordinate(char letter, int number) { }

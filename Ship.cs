@@ -1,12 +1,12 @@
 interface IShip
 {
-    public List<Coord> coords
+    public List<Coordinate> coords
     {
         get;
     }
 
     bool IsKilled();
-    void HitShip(Coord coord);
+    void HitShip(Coordinate coord);
     string GetDeathMessage();
 }
 
@@ -20,9 +20,9 @@ enum ShipCapacity
 
 class NotValidShip : IShip
 {
-    private List<Coord> _coords = new List<Coord>();
+    private List<Coordinate> _coords = new List<Coordinate>();
 
-    public List<Coord> coords
+    public List<Coordinate> coords
     {
         get { return _coords; }
     }
@@ -31,7 +31,7 @@ class NotValidShip : IShip
     {
         throw new NotImplementedException();
     }
-    public void HitShip(Coord coord)
+    public void HitShip(Coordinate coord)
     {
         throw new NotImplementedException();
     }
@@ -45,8 +45,8 @@ class NotValidShip : IShip
 
 class Ship : IShip
 {
-    private List<Coord> _coords;
-    public List<Coord> coords
+    private List<Coordinate> _coords;
+    public List<Coordinate> coords
     {
         get
         {
@@ -54,13 +54,13 @@ class Ship : IShip
         }
     }
 
-    List<Coord> floatedCoords = new List<Coord>();
-    public Ship(List<Coord> coords)
+    List<Coordinate> floatedCoords = new List<Coordinate>();
+    public Ship(List<Coordinate> coords)
     {
         _coords = coords;
     }
 
-    public void HitShip(Coord coord)
+    public void HitShip(Coordinate coord)
     {
         if (_coords.Contains(coord))
         {
@@ -81,7 +81,7 @@ class Ship : IShip
 
 class OneCellShip : Ship
 {
-    public OneCellShip(List<Coord> coords) : base(coords)
+    public OneCellShip(List<Coordinate> coords) : base(coords)
     {
         // TODO how to not call base constructor before validation?
         if (coords.Count != (int)ShipCapacity.OneCellShip)
@@ -98,7 +98,7 @@ class OneCellShip : Ship
 
 class TwoCellShip : Ship
 {
-    public TwoCellShip(List<Coord> coords) : base(coords)
+    public TwoCellShip(List<Coordinate> coords) : base(coords)
     {
         // TODO how to not call base constructor before validation?
         if (coords.Count != (int)ShipCapacity.TwoCellShip)
@@ -115,7 +115,7 @@ class TwoCellShip : Ship
 
 class ThreeCellShip : Ship
 {
-    public ThreeCellShip(List<Coord> coords) : base(coords)
+    public ThreeCellShip(List<Coordinate> coords) : base(coords)
     {
         // TODO how to not call base constructor before validation?
         if (coords.Count != (int)ShipCapacity.ThreeCellShip)
@@ -132,7 +132,7 @@ class ThreeCellShip : Ship
 
 class FourCellShip : Ship
 {
-    public FourCellShip(List<Coord> coords) : base(coords)
+    public FourCellShip(List<Coordinate> coords) : base(coords)
     {
         // TODO how to not call base constructor before validation?
         if (coords.Count != (int)ShipCapacity.FourCellShip)

@@ -16,7 +16,7 @@ static class BattleGroundUtils
     public static List<IShip> GenerateShips()
     {
         List<IShip> ships = new List<IShip>();
-        HashSet<Coord> busyCoords = new HashSet<Coord>();
+        HashSet<Coordinate> busyCoords = new HashSet<Coordinate>();
         int[] shipsCount = new int[4] { 4, 3, 2, 1 };
 
         for (int i = shipsCount.Length - 1; i >= 0; i--)
@@ -41,19 +41,19 @@ static class BattleGroundUtils
         return ships;
     }
 
-    private static bool TryGenShip(ref HashSet<Coord> busyCoords, int shipSize, out IShip ship)
+    private static bool TryGenShip(ref HashSet<Coordinate> busyCoords, int shipSize, out IShip ship)
     {
         int remainingAttempts = 100;
-        List<Coord> notValidCoords = new List<Coord>();
+        List<Coordinate> notValidCoords = new List<Coordinate>();
         ship = new NotValidShip();
         Random r = new Random();
-        Coord c;
+        Coordinate c;
 
         do
         {
             int x = r.Next(0, 9);
             int y = r.Next(0, 9);
-            c = new Coord(IntToChar(x), y);
+            c = new Coordinate(IntToChar(x), y);
 
             if (busyCoords.Contains(c))
             {
@@ -61,13 +61,13 @@ static class BattleGroundUtils
             }
             else if (TryToGenShipFromCell(busyCoords, shipSize, c, out ship))
             {
-                foreach (Coord shipCoord in ship.coords)
+                foreach (Coordinate shipCoord in ship.coords)
                 {
                     busyCoords.Add(shipCoord);
 
                     // add all coords nearby
-                    List<Coord> roundCoords = GenRoundCoords(shipCoord);
-                    foreach (Coord roundCoord in roundCoords)
+                    List<Coordinate> roundCoords = GenRoundCoords(shipCoord);
+                    foreach (Coordinate roundCoord in roundCoords)
                     {
                         busyCoords.Add(roundCoord);
                     }
@@ -81,9 +81,9 @@ static class BattleGroundUtils
         return false;
     }
 
-    private static List<Coord> GenRoundCoords(Coord startingCoord)
+    private static List<Coordinate> GenRoundCoords(Coordinate startingCoord)
     {
-        List<Coord> coords = new List<Coord>();
+        List<Coordinate> coords = new List<Coordinate>();
         int x = CharToInt(startingCoord.letter);
         int y = startingCoord.number;
 
@@ -93,25 +93,25 @@ static class BattleGroundUtils
             {
                 if (i < 0 || j < 0) continue;
                 if (i == x && j == y) continue;
-                coords.Add(new Coord(IntToChar(i), j));
+                coords.Add(new Coordinate(IntToChar(i), j));
             }
         }
 
         return coords;
     }
 
-    private static bool TryToGenShipFromCell(HashSet<Coord> busyCoords, int shipSize, Coord startingCoord, out IShip ship)
+    private static bool TryToGenShipFromCell(HashSet<Coordinate> busyCoords, int shipSize, Coordinate startingCoord, out IShip ship)
     {
         ship = new NotValidShip();
         if (shipSize == 1)
         {
-            ship = new OneCellShip(new List<Coord> { startingCoord });
+            ship = new OneCellShip(new List<Coordinate> { startingCoord });
             return true;
         }
 
         for (int i = 1; i < 5; i++)
         {
-            List<Coord> possibleShip = new List<Coord>();
+            List<Coordinate> possibleShip = new List<Coordinate>();
 
             for (int j = 1; j < shipSize + 1; j++)
             {
@@ -126,7 +126,7 @@ static class BattleGroundUtils
                 if (x < 0 || x > 9) break; // not valid
                 if (y < 0 || y > 9) break; // not valid
 
-                Coord coord = new Coord(IntToChar(x), y);
+                Coordinate coord = new Coordinate(IntToChar(x), y);
                 if (busyCoords.Contains(coord) || coord == startingCoord) break;
 
                 possibleShip.Add(coord);

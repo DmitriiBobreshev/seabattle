@@ -21,7 +21,7 @@ class Player
         }
     }
 
-    public (string, FireResult) FireCell(Coord coord)
+    public (string, FireResult) FireCell(Coordinate coord)
     {
         return _battlefround.FireCell(coord);
     }

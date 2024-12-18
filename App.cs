@@ -32,7 +32,7 @@ class App
                 line = Console.ReadLine();
                 if (line == String.Empty || line == null) return;
 
-                Coord coord = GetCoordsFromLine(line);
+                Coordinate coord = GetCoordsFromLine(line);
 
                 (string Text, FireResult Result) t = oponent.FireCell(coord);
                 Console.WriteLine(t.Text);
@@ -60,7 +60,7 @@ class App
         }
     }
 
-    private Coord GetCoordsFromLine(string line)
+    private Coordinate GetCoordsFromLine(string line)
     {
         if (line.Length != 2 && line.Length != 3)
         {
@@ -79,7 +79,7 @@ class App
             throw new ArgumentOutOfRangeException(Localization.NotValidCell);
         }
 
-        return new Coord(letter, y - 1);
+        return new Coordinate(letter, y - 1);
     }
 
     private void ShowBattleground()
