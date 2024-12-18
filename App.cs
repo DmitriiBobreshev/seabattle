@@ -32,9 +32,7 @@ class App
                 line = Console.ReadLine();
                 if (line == String.Empty || line == null) return;
 
-                (int x, int y) c = GetCoordsFromLine(line);
-
-                Coord coord = new Coord(c.x, c.y);
+                Coord coord = GetCoordsFromLine(line);
 
                 (string Text, FireResult Result) t = oponent.FireCell(coord);
                 Console.WriteLine(t.Text);
@@ -62,16 +60,26 @@ class App
         }
     }
 
-    private (int, int) GetCoordsFromLine(string line)
+    private Coord GetCoordsFromLine(string line)
     {
-        if (line.Length != 2) throw new ArgumentOutOfRangeException(Localization.ReadLineException);
+        if (line.Length != 2)
+        {
+            throw new ArgumentOutOfRangeException(Localization.ReadLineException);
+        }
+
         int y = BattleGroundUtils.CharToInt(line[0]);
-        if (y < 0 || y > 10) throw new ArgumentOutOfRangeException(Localization.NotValidCell);
+        if (y < 0 || y > 10)
+        {
+            throw new ArgumentOutOfRangeException(Localization.NotValidCell);
+        }
 
         int x = line[1] - '0';
-        if (x < 0 || x > 10) throw new ArgumentOutOfRangeException(Localization.NotValidCell);
+        if (x < 0 || x > 10)
+        {
+            throw new ArgumentOutOfRangeException(Localization.NotValidCell);
+        }
 
-        return (x, y);
+        return new Coord(x, y);
     }
 
     private void ShowBattleground()

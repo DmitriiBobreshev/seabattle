@@ -84,7 +84,10 @@ class OneCellShip : Ship
     public OneCellShip(List<Coord> coords) : base(coords)
     {
         // TODO how to not call base constructor before validation?
-        if (coords.Count != (int)ShipCapacity.OneCellShip) throw new ArgumentOutOfRangeException(Localization.OneCellShipOutOfRange);
+        if (coords.Count != (int)ShipCapacity.OneCellShip)
+        {
+            throw new ArgumentOutOfRangeException(Localization.OneCellShipOutOfRange);
+        }
     }
 
     public override string GetDeathMessage()
@@ -98,7 +101,10 @@ class TwoCellShip : Ship
     public TwoCellShip(List<Coord> coords) : base(coords)
     {
         // TODO how to not call base constructor before validation?
-        if (coords.Count != (int)ShipCapacity.TwoCellShip) throw new ArgumentOutOfRangeException(Localization.TwoCellShipOutOfRange);
+        if (coords.Count != (int)ShipCapacity.TwoCellShip)
+        {
+            throw new ArgumentOutOfRangeException(Localization.TwoCellShipOutOfRange);
+        }
     }
 
     public override string GetDeathMessage()
@@ -112,7 +118,10 @@ class ThreeCellShip : Ship
     public ThreeCellShip(List<Coord> coords) : base(coords)
     {
         // TODO how to not call base constructor before validation?
-        if (coords.Count != (int)ShipCapacity.ThreeCellShip) throw new ArgumentOutOfRangeException(Localization.ThreeCellShipOutOfRange);
+        if (coords.Count != (int)ShipCapacity.ThreeCellShip)
+        {
+            throw new ArgumentOutOfRangeException(Localization.ThreeCellShipOutOfRange);
+        }
     }
 
     public override string GetDeathMessage()
@@ -126,7 +135,10 @@ class FourCellShip : Ship
     public FourCellShip(List<Coord> coords) : base(coords)
     {
         // TODO how to not call base constructor before validation?
-        if (coords.Count != (int)ShipCapacity.FourCellShip) throw new ArgumentOutOfRangeException(Localization.FourCellShipOutOfRange);
+        if (coords.Count != (int)ShipCapacity.FourCellShip)
+        {
+            throw new ArgumentOutOfRangeException(Localization.FourCellShipOutOfRange);
+        }
     }
 
     public override string GetDeathMessage()

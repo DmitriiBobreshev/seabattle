@@ -20,7 +20,7 @@ interface ICell
 
 class Cell
 {
-    Coord coord;
+    readonly Coord coord;
     CellStatus status;
     IShip? ship;
 
