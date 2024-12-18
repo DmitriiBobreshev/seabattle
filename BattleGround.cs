@@ -3,21 +3,19 @@ using System.Text;
 class BattleGround
 {
     private const char delitimer = '|';
-    public string playerName { get; init; }
     private Cell[,] board = new Cell[10, 10];
-
-    private int shipCnt = 0;
-    public BattleGround(List<IShip> ships, string player = "UnknownPlayer")
+    private int _shipCnt;
+    public int ShipCnt => _shipCnt;
+    public BattleGround(List<IShip> ships)
     {
-        playerName = player;
-        shipCnt = ships.Count;
+        _shipCnt = ships.Count;
         FillBoard(ships);
     }
 
     private void FillBoard(List<IShip> ships)
     {
-        int rows = board.GetUpperBound(0) + 1;
-        int columns = board.Length / rows;
+        int rows = board.GetLength(0);
+        int columns = board.GetLength(1);
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < columns; j++)
@@ -44,11 +42,6 @@ class BattleGround
         return cell;
     }
 
-    public bool IsGameOver()
-    {
-        return shipCnt == 0;
-    }
-
     public (string, FireResult) FireCell(Coord coord)
     {
         try
@@ -61,7 +54,7 @@ class BattleGround
                 case FireResult.Missed: return (Localization.Missed, FireResult.Missed);
                 case FireResult.Hit: return (Localization.Hit, FireResult.Hit);
                 case FireResult.Killed:
-                    shipCnt--;
+                    _shipCnt--;
                     return (cell.GetShipKilledMessage(), FireResult.Killed);
                 default: return (Localization.Dupliacte, FireResult.Duplicate);
             }
@@ -72,16 +65,10 @@ class BattleGround
         }
     }
 
-    public string GetPlayerName()
-    {
-        return playerName;
-    }
 
     public IEnumerable<StringBuilder> DisplayBattleGround()
     {
-        StringBuilder sb = new StringBuilder("  " + playerName);
-        yield return sb;
-
+        StringBuilder sb = new StringBuilder();
         yield return DisplayRowHeader();
 
         int rows = board.GetLength(0);
@@ -102,7 +89,7 @@ class BattleGround
     {
         StringBuilder sb = new StringBuilder(" " + delitimer);
 
-        int rows = board.GetUpperBound(0) + 1;
+        int rows = board.GetLength(0);
         for (int i = 0; i < rows; i++)
         {
             char rowChar = BattleGroundUtils.IntToChar(i);

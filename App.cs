@@ -2,17 +2,15 @@ using System.Text;
 
 class App
 {
-    BattleGround player1;
-    BattleGround player2;
+    Player player1;
+    Player player2;
 
     bool isPlayer1Turn = true;
 
     public App()
     {
-        List<IShip> ships1 = BattleGroundUtils.GenerateShips();
-        List<IShip> ships2 = BattleGroundUtils.GenerateShips();
-        player1 = new BattleGround(ships1, "Player1");
-        player2 = new BattleGround(ships2, "Player2");
+        player1 = new Player("Player1");
+        player2 = new Player("Player2");
     }
 
     public void Start()
@@ -23,13 +21,13 @@ class App
         {
             try
             {
-                BattleGround playerField = isPlayer1Turn ? player1 : player2;
-                BattleGround oponentField = isPlayer1Turn ? player2 : player1;
+                Player player = isPlayer1Turn ? player1 : player2;
+                Player oponent = isPlayer1Turn ? player2 : player1;
                 Console.Clear();
                 ShowBattleground();
 
                 Console.WriteLine(Localization.MainInfo);
-                Console.Write(playerField.playerName + ": ");
+                Console.Write(player.playerName + ": ");
 
                 line = Console.ReadLine();
                 if (line == String.Empty || line == null) return;
@@ -38,7 +36,7 @@ class App
 
                 Coord coord = new Coord(c.x, c.y);
 
-                (string Text, FireResult Result) t = oponentField.FireCell(coord);
+                (string Text, FireResult Result) t = oponent.FireCell(coord);
                 Console.WriteLine(t.Text);
 
                 if (t.Result == FireResult.Missed || t.Result == FireResult.Duplicate)
@@ -46,9 +44,9 @@ class App
                     isPlayer1Turn = !isPlayer1Turn;
                 }
 
-                if (oponentField.IsGameOver())
+                if (oponent.IsGameOver())
                 {
-                    Console.WriteLine(Localization.GameOver + player1.playerName);
+                    Console.WriteLine(Localization.GameOver + player.playerName);
                     return;
                 }
 
