@@ -1,1 +1,1 @@
-record Coord(int x, int y) {}
+record Coord(int x, int y) { }

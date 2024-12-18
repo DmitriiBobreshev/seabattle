@@ -1,74 +1,76 @@
-enum FireResult {
-  Missed, 
-  Hit,
-  Killed,
-  Duplicate
+enum FireResult
+{
+    Missed,
+    Hit,
+    Killed,
+    Duplicate
 }
 
-enum CellStatus {
-  Hidden,
-  ShipHit,
-  Open
+enum CellStatus
+{
+    Hidden,
+    ShipHit,
+    Open
 }
 
 interface ICell
 {
-  public FireResult Fire(Coord coord);
+    public FireResult Fire(Coord coord);
 }
 
-class Cell 
+class Cell
 {
-  Coord coord;
-  CellStatus status;
-  IShip? ship;
+    Coord coord;
+    CellStatus status;
+    IShip? ship;
 
-  public Cell(Coord coord)
-  {
-    this.coord = coord;
-    status = CellStatus.Hidden;
-  }
-
-  public Cell(Coord coord, IShip ship): this(coord) 
-  {
-    this.ship = ship;
-  }
-
-  public FireResult Fire()
-  {
-    if (status == CellStatus.Open) return FireResult.Duplicate;
-
-    if (ship != null)
+    public Cell(Coord coord)
     {
-      status = CellStatus.ShipHit;
-      ship.HitShip(coord);
-      if (ship.IsKilled()) return FireResult.Killed;
-      return FireResult.Hit;
+        this.coord = coord;
+        status = CellStatus.Hidden;
     }
 
-    status = CellStatus.Open;
-    return FireResult.Missed;
-  }
-
-  public string GetShipKilledMessage()
-  {
-    if (ship != null && ship.IsKilled())
+    public Cell(Coord coord, IShip ship) : this(coord)
     {
-      return ship.GetDeathMessage();
+        this.ship = ship;
     }
 
-    throw new Exception(Localization.ShipNotKilledMessage);
-  }
+    public FireResult Fire()
+    {
+        if (status == CellStatus.Open) return FireResult.Duplicate;
 
-  public override string ToString()
-  {
-    if (status == CellStatus.ShipHit) return "X";
-    if (status == CellStatus.Open) return "O";
-    
+        if (ship != null)
+        {
+            status = CellStatus.ShipHit;
+            ship.HitShip(coord);
+            if (ship.IsKilled()) return FireResult.Killed;
+            return FireResult.Hit;
+        }
+
+        status = CellStatus.Open;
+        return FireResult.Missed;
+    }
+
+    public string GetShipKilledMessage()
+    {
+        if (ship != null && ship.IsKilled())
+        {
+            return ship.GetDeathMessage();
+        }
+
+        throw new Exception(Localization.ShipNotKilledMessage);
+    }
+
+    public override string ToString()
+    {
+        if (status == CellStatus.ShipHit) return "X";
+        if (status == CellStatus.Open) return "O";
+
 #if DEBUG
-    if (ship != null) return "S"; // remove in production
+        if (ship != null) return "S"; // remove in production
 #endif
 
-    return "H";
-  }
+        return "H";
+    }
 }
 
