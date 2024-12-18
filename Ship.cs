@@ -83,7 +83,6 @@ class OneCellShip : Ship
 {
     public OneCellShip(List<Coordinate> coords) : base(coords)
     {
-        // TODO how to not call base constructor before validation?
         if (coords.Count != (int)ShipCapacity.OneCellShip)
         {
             throw new ArgumentOutOfRangeException(Localization.OneCellShipOutOfRange);
@@ -100,7 +99,6 @@ class TwoCellShip : Ship
 {
     public TwoCellShip(List<Coordinate> coords) : base(coords)
     {
-        // TODO how to not call base constructor before validation?
         if (coords.Count != (int)ShipCapacity.TwoCellShip)
         {
             throw new ArgumentOutOfRangeException(Localization.TwoCellShipOutOfRange);
@@ -117,7 +115,6 @@ class ThreeCellShip : Ship
 {
     public ThreeCellShip(List<Coordinate> coords) : base(coords)
     {
-        // TODO how to not call base constructor before validation?
         if (coords.Count != (int)ShipCapacity.ThreeCellShip)
         {
             throw new ArgumentOutOfRangeException(Localization.ThreeCellShipOutOfRange);
@@ -134,7 +131,6 @@ class FourCellShip : Ship
 {
     public FourCellShip(List<Coordinate> coords) : base(coords)
     {
-        // TODO how to not call base constructor before validation?
         if (coords.Count != (int)ShipCapacity.FourCellShip)
         {
             throw new ArgumentOutOfRangeException(Localization.FourCellShipOutOfRange);
